@@ -1,0 +1,48 @@
+import nflgame
+import csv
+from sportsreference.nfl.roster import Roster
+from sportsreference.nfl.teams import Teams
+
+
+nfl_roster = []
+
+# get all teams
+for team in Teams():
+    #print(str(team.abbreviation.lower()))
+    # get roster
+    print(str(team.abbreviation.upper()))
+    current_team = str(team.abbreviation.upper())
+    team_roster = Roster(current_team)
+    
+    
+        
+    for player in team_roster.players:
+        player_data = (str(player.player_id) + ',' + str(player.name) +','+ current_team + 'sports_ref_player\n')
+        nfl_roster.append(player_data)
+
+# print 
+print(nfl_roster)
+
+# write rosters out to csv
+with open("nfl_rosters_sports_ref2.csv",'w') as resultFile:
+    wr = csv.writer(resultFile, dialect='excel')
+    wr.writerow(nfl_roster)
+
+
+'''
+# examples for individaul teams
+giants = Roster('NYG')
+for player in giants.players:
+    # Prints the name of all players who played for the New Orleans Saints
+    # in the most recent season.
+    if player.name == 'Eli Manning':
+        print(player.player_id, player.name, player.position )
+
+
+bills = Roster('buf')
+for player in bills.players:
+    # Prints the name of all players who played for the New Orleans Saints
+    # in the most recent season.
+    if player.name == 'Devin Singletary':
+        print(player.name, player.dataframe)
+'''
